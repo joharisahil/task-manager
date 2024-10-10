@@ -1,17 +1,33 @@
 import React from "react";
-import { ListItem, Button, ListItemText } from "@mui/material";
+import { Button } from "@mui/material";
 
-const TaskItem = ({ task, onDeleteTask }) => {
+const TaskItem = ({ task, index, handleDelete, handleEdit }) => {
   return (
-    <ListItem>
-      {/* Display the task's name */}
-      <ListItemText primary={task.name} />
-
-      {/* Delete button */}
-      <Button variant="contained" color="secondary" onClick={onDeleteTask}>
-        Delete
-      </Button>
-    </ListItem>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        margin: "10px",
+      }}
+    >
+      <span>{task}</span>
+      <div style={{ display: "flex", gap: "8px" }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => handleEdit(index)}
+        >
+          Edit
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => handleDelete(index)}
+        >
+          Delete
+        </Button>
+      </div>
+    </div>
   );
 };
 

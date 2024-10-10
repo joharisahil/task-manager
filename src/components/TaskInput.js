@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 
-const TaskInput = ({ onAddTask }) => {
-  const [task, setTask] = useState("");
-
-  const handleAddTask = () => {
-    if (task.trim() !== "") {
-      // Create a new task object with a unique ID
-      const newTask = { id: Date.now(), name: task };
-      onAddTask(newTask);
-      setTask(""); // Clear the input after adding the task
+const TaskInput = ({
+  handleAddTask,
+  task,
+  setTask,
+  isEditing,
+  setIsEditing,
+  editingIndex,
+  setEditingIndex,
+}) => {
+  const handleSubmit = () => {
+    if (isEditing) {
+      handleAddTask(editingIndex); 
+      setIsEditing(false); 
+      setEditingIndex(null); 
+    } else {
+      handleAddTask(); 
     }
+    setTask(""); 
   };
 
   return (
@@ -25,9 +33,9 @@ const TaskInput = ({ onAddTask }) => {
         variant="contained"
         color="primary"
         style={{ marginTop: "20px" }}
-        onClick={handleAddTask}
+        onClick={handleSubmit}
       >
-        Add Task
+        {isEditing ? "Update Task" : "Add Task"}
       </Button>
     </div>
   );
